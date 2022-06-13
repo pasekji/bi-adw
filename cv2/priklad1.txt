@@ -1,0 +1,13 @@
+@echo off
+
+reg query "HKCU\Software\adw" /v "reg-counter"
+if errorlevel 1 (reg add "HKCU\Software\adw" /v reg-counter /d 0 /t REG_SZ /f)
+
+for /f "skip=1 tokens=3" %%a in ('reg query "HKCU\Software\adw" /v "reg-counter"') do (
+	set /a counter=%%a
+)
+
+set /a counter+=1
+reg add "HKCU\Software\adw" /v reg-counter /d %counter% /t REG_SZ /f
+
+ 

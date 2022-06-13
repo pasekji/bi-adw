@@ -1,0 +1,37 @@
+﻿@echo off
+setlocal EnableDelayedExpansion
+
+set target=discord.com
+set testCount=0
+set errorCount=0
+set successCount=0
+set errorSequence=0
+set redButton=0
+set errorLimit=3
+if exist temp.txt FOR /F "tokens=1,2,3,4 delims=," %%a IN (temp.txt) do set testCount=%%a&set successCount=%%b&set errorCount=%%c&set errorSequence=%%d  
+
+rem test of reachability
+:test
+ping %target% | find /i "TTL"
+set /a testCount+=1
+if errorlevel 1 goto error
+set /a successCount+=1
+echo %date% ; %time% ; OK >> log.csv
+set errorSequence=0
+goto end
+
+:alert
+echo ztrata pripojeni (%date%,%time%) > SMS.txt
+set errorSequence=0
+goto end
+
+:error
+set /a errorCount+=1
+set /a errorSequence+=1
+echo %date% ; %time% ; ERROR >> log.csv
+if %errorSequence% GEQ %errorLimit% set /a redButton=1
+if %redButton% EQU 1 goto alert
+
+:end
+echo %testCount%,%successCount%,%errorCount%,%errorSequence% > temp.txt
+echo celkový počet testů: %testCount%, počet úspěšných testů: %successCount%, počet neúspěšných testů: %errorCount%, počet neúspěšných testů v řadě: %errorSequence% > summary.txt

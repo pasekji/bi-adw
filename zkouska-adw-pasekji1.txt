@@ -1,0 +1,33 @@
+Group policy
+
+- zaloeno na Windows NT 
+- umonòuje v doménì kontrolovanej AD centralizovanou správu, vynucení nastavení OS windows 
+	- nastavovat options operaèního systému, aplikací, uivatelù v doménì
+- skupina jednotlivıch nastaveních se zde nazıvá GPO - group policy object
+	- provedené zmìny v jendotlivıch GPO se v doménì aplikují do 90 minut stadardnì, nìkdy je ale
+	tøeba restartovat systém a opìtovné pøihlášní uivatele 
+	- natáhnutí aktuálního nastavení do koncové stanice lze pøes cmd.exe a pøíkaz gpupdate
+
+GPO mùeme pøiøazovat ke koncovım stanicím, sítím (napø. LAN), doménám a organizaèním jednotkám
+	- v stejném poøadí se návaznost na GPO také dìdí na její potomky 
+	- koneèná politika se na stanici se dá zobrazit pøíkazem gpresult
+	- tuto politiku lze také dále modifikovat WMI, kde se pomocí jednoho z jazykù podporovanıch WMI vyvolá 
+	dotaz, kterı mùe specifikovat další omezní
+
+	- lze je aplikovat na úrovni poèítaèe(aplikace po zapnutí PC) nebo na úrovni uivatele(po pøihlášení)
+
+V rámci GP lze nastavovat: 
+	-registry
+	-omezení pro pøipojování do sítì pro bezpeènost, 
+	- po spuštìní/vypnutí nebo odhlášení/pøihlášení spouštìt na koneènıch stanicích libovolné skripty
+	- instalace a distribuce softwaru v rámci domény (je tøeba instalaèní balíèek .msi)
+		- rozlišujeme na assigned(automatická instalace po zapnutí) a published(na vyádání dostupné v 		control panelu 
+	- pøesmìrování adresáøù na sí
+	- nastavení internet exploreru
+
+nástroje pro GP:
+	- GPMC
+	- gpresult
+	- gpupdate
+	- Group policy object editor
+	- šablony nastavení pro GPO, mùeme tvoøit vlastní, lze vyuívat export/import

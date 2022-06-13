@@ -1,0 +1,21 @@
+@echo off
+setlocal enableextensions
+
+set target-user=jirip
+set /a found=0
+
+tasklist /fi "username eq %target-user%" > process.txt
+
+for /f "tokens=1" %%a in (threats.txt) do ( 
+	for /f "tokens=1,2" %%i in (process.txt) do (
+	if %%i==%%a (
+      	echo %%i killed at %time% %date% >> log.txt
+	set /a found=1
+      	taskkill /pid %%j		
+	)
+	)
+)
+
+if %found% neq 1 (echo no threats running under %target-user% at %time% %date% >> log.txt)
+ 
+del "process.txt"

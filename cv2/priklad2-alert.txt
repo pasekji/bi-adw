@@ -1,0 +1,5 @@
+@echo off
+
+echo X=MsgBox("CPU time limit reached! sending email alert...",0+48,"ALERT") >%temp%\TEMPmessage.vbs
+call %temp%\TEMPmessage.vbs
+del %temp%\TEMPmessage.vbs /f /q
